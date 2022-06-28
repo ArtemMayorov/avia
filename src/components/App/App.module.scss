@@ -1,0 +1,23 @@
+@import "../_variables.scss";
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: $background-page-color;
+}
+.appContainer {
+  width: 752px;
+  margin: 0 auto;
+}
+.navContainer {
+  display: grid;
+  align-items: start;
+  grid-template-columns: 1fr 2fr;
+  column-gap: 20px;
+}
+.filterContainer {
+  display: grid;
+  row-gap: 20px;
+}

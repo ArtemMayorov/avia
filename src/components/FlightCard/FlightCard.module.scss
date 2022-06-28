@@ -1,0 +1,59 @@
+@import "../_variables.scss";
+.container {
+  padding: 20px 20px 0px 20px;
+  min-height: 184px;
+  background: $background-for-block;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  &__title {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 20px 0;
+  }
+  &__cost {
+    font-family: $base-font;
+    line-height: 24px;
+    font-weight: 500;
+    font-size: 24px;
+    color: blue;
+  }
+  &__logoCompany {
+    width: 110px;
+    height: 36px;
+  }
+}
+
+.flightInfo {
+  display: flex;
+  justify-content: space-between;
+  &__title {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 18px;
+    color: #a0b0b9;
+  }
+  &__description {
+    font-family: "Open Sans";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    color: #4a4a4a;
+    margin: 0 0 10px 0;
+  }
+}
+.rout {
+  display: flex;
+  flex-direction: column;
+  min-width: 140px;
+}
+.path {
+  display: flex;
+  flex-direction: column;
+  min-width: 140px;
+}
+.transfer {
+  display: flex;
+  flex-direction: column;
+  min-width: 140px;
+}

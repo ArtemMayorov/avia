@@ -1,0 +1,19 @@
+@import "../variables";
+.container {
+  padding: 20px 0 20px 0;
+  min-width: 232px;
+  min-height: 252px;
+  background-color: $background-for-block;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+
+  &__title {
+    color: #4a4a4a;
+    margin: 0 0 20px 20px;
+    font-family: $base-font;
+    font-size: 12px;
+    line-height: 12px;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+  }
+}

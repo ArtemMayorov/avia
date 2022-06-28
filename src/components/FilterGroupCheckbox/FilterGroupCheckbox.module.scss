@@ -1,0 +1,53 @@
+.item {
+  &:hover {
+    background-color: #f1fcff;
+  }
+  list-style-type: none;
+  &__text {
+    margin-left: 10px;
+    height: 20px;
+  }
+  &__checkbox {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+    margin: 10px 0 0 20px;
+    & + label {
+      height: 40px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      margin-left: 5px;
+      cursor: pointer;
+      &::before {
+        content: "";
+        margin-left: 20px;
+        margin-right: 10px;
+        display: block;
+        width: 20px;
+        height: 20px;
+        border: 1px solid #9abbce;
+        border-radius: 2px;
+        transition: 0.2s;
+      }
+    }
+    &:checked {
+      & + label {
+        &::before {
+          content: "";
+          border: 1px solid #2196f3;
+        }
+        &::after {
+          content: "";
+          background: url("./images/Shapecheck-mark.svg") no-repeat center;
+          position: absolute;
+          transform: translate(105%, 50%);
+          top: 0px;
+          left: 0px;
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+  }
+}
