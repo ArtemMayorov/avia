@@ -27,12 +27,21 @@ const reducer = (state = initialState, action) => {
           threeTransfer: !threeTransfer,
         },
       };
+
     case "FILTER_ON_TRANSFERS":
       return {
         ...state,
         filterAllTicket: false,
         filters: {
           noTransfers: !noTransfers,
+        },
+      };
+    case "FILTER_ONE_TRANSFERS":
+      return {
+        ...state,
+        filterAllTicket: false,
+        filters: {
+          oneTransfer: !oneTransfer,
         },
       };
     case "FILTER_TWO_TRANSFERS":

@@ -5,41 +5,64 @@ import { connect } from "react-redux";
 
 import FilterGroupCheckbox from "../FilterGroupCheckbox/FilterGroupCheckbox";
 const FilterGroup = ({
+  filterAllTransfer,
   filterAllTicket,
+  filterOnTransfer,
+  filterOneTransfer,
+  filterTworansfer,
+  filterThreeransfer,
   noTransfers,
   oneTransfer,
   twoTransfer,
   threeTransfer,
 }) => {
-  console.log("filterAllTicket", filterAllTicket);
+  const handleCheck = (name) => {
+    if (name === "FILTER_ALL_TRANSFERS") filterAllTransfer();
+    if (name === "FILTER_ON_TRANSFERS") filterOnTransfer();
+    if (name === "FILTER_ONE_TRANSFERS") filterOneTransfer();
+    if (name === "FILTER_TWO_TRANSFERS") filterTworansfer();
+    if (name === "FILTER_THREE_TRANSFERS") filterThreeransfer();
+    console.log("name", name);
+  };
+
   return (
     <div className={s.container}>
       <h1 className={s.container__title}>КОЛИЧЕСТВО ПЕРЕСАДОК</h1>
       <ul>
         <FilterGroupCheckbox
+          handleCheck={handleCheck}
           active={filterAllTicket}
           text="Все"
           id="checbox1"
+          name="FILTER_ALL_TRANSFERS"
         />
         <FilterGroupCheckbox
+          handleCheck={handleCheck}
           active={noTransfers}
           text="Без пересадок"
           id="checbox2"
+          name="FILTER_ON_TRANSFERS"
         />
         <FilterGroupCheckbox
+          handleCheck={handleCheck}
           active={oneTransfer}
           text="1 пересадка"
           id="checbox3"
+          name="FILTER_ONE_TRANSFERS"
         />
         <FilterGroupCheckbox
+          handleCheck={handleCheck}
           active={twoTransfer}
           text="2 пересадки"
           id="checbox4"
+          name="FILTER_TWO_TRANSFERS"
         />
         <FilterGroupCheckbox
+          handleCheck={handleCheck}
           active={threeTransfer}
           text="3 пересадки"
           id="checbox5"
+          name="FILTER_THREE_TRANSFERS"
         />
       </ul>
     </div>
@@ -60,4 +83,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(FilterGroup);
+export default connect(mapStateToProps, actions)(FilterGroup);
