@@ -1,10 +1,17 @@
 import React from "react";
 import s from "./TabButton.module.scss";
-function TabButton({ text }) {
+
+function TabButton({ text, handleActiveButton, activeSort, id }) {
   return (
-    <div>
-      <button className={s.button}>{text}</button>
-    </div>
+    <React.Fragment>
+      <button
+        id={id}
+        onClick={() => handleActiveButton(id)}
+        className={activeSort === id ? s["button--active"] : s.button}
+      >
+        {text}
+      </button>
+    </React.Fragment>
   );
 }
 

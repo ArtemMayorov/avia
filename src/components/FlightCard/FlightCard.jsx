@@ -1,7 +1,6 @@
 import React from "react";
 import s from "./FlightCard.module.scss";
 import companyLogo from "./FlightCardImages/company.svg";
-console.log("s", s);
 const FlightCard = () => {
   return (
     <div className={s.container}>
