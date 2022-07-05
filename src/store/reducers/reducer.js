@@ -92,9 +92,18 @@ const reducer = (state = initialState, action) => {
       };
 
     case "TICKET_DATA_SUCCESS":
+      if (!state.tickets.tickets) {
+        return {
+          ...state,
+          tickets: action.tickets,
+        };
+      }
       return {
         ...state,
-        tickets: action.tickets,
+        // tickets: action.tickets,
+        tickets: {
+          tickets: [...state.tickets.tickets, ...action.tickets.tickets],
+        },
       };
     case "STOP_RECEIVING":
       return {

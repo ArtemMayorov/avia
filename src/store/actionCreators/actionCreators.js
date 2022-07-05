@@ -9,6 +9,7 @@ export const filterOnTransfer = () => ({ type: "FILTER_ON_TRANSFERS" });
 export const filterOneTransfer = () => ({ type: "FILTER_ONE_TRANSFERS" });
 export const filterTworansfer = () => ({ type: "FILTER_TWO_TRANSFERS" });
 export const filterThreeransfer = () => ({ type: "FILTER_THREE_TRANSFERS" });
+const stopReceiving = () => ({ type: "STOP_RECEIVING" });
 
 // будем увеличивать текущее значение displayedTickets на 5
 export const buttonShowAll = () => ({
@@ -19,29 +20,51 @@ export const buttonShowAll = () => ({
 export const ticketFetchDateSuccess = (tickets) => {
   return {
     type: "TICKET_DATA_SUCCESS",
-    tickets,
+    tickets: tickets,
   };
 };
 
-const stopReceiving = () => {
-  return {
-    type: "STOP_RECEIVING",
-    payload: true,
-  };
-};
-
-export const idFetch = (searchId) => {
+const idFetch = (searchId) => {
   return (dispatch) => {
     fetch(
       `https://aviasales-test-api.kata.academy/tickets?searchId=${searchId}`
     )
       .then((response) => {
-        if (response.stop) dispatch(stopReceiving);
         return response.json();
       })
-      .then((tickets) => dispatch(ticketFetchDateSuccess(tickets)));
+      .then((tickets) => {
+        if (tickets.stop) {
+          console.log("1");
+          // dispatch(ticketFetchDateSuccess(tickets));
+          dispatch(stopReceiving());
+          return;
+        } else {
+          console.log("2");
+          dispatch(ticketFetchDateSuccess(tickets));
+          dispatch(idFetch(searchId));
+        }
+      })
+      .catch((err) => {
+        if (err.status === 500) {
+          dispatch(idFetch(searchId));
+          console.log("500");
+        }
+      });
   };
 };
+
+// const idFetch = (searchId) => {
+//   return (dispatch) => {
+//     fetch(
+//       `https://aviasales-test-api.kata.academy/tickets?searchId=${searchId}`
+//     )
+//       .then((response) => {
+//         if (response.stop) dispatch(stopReceiving);
+//         return response.json();
+//       })
+//       .then((tickets) => dispatch(ticketFetchDateSuccess(tickets)));
+//   };
+// };
 
 export const ticketFetchDate = () => {
   return (dispatch) => {
@@ -49,6 +72,10 @@ export const ticketFetchDate = () => {
       .then((response) => response.json())
       .then((searchId) => {
         dispatch(idFetch(searchId.searchId));
+      })
+      .catch((err) => {
+        console.log("err");
+        // dispatch(ticketFetchDate());
       });
   };
 };

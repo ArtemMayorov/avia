@@ -4,19 +4,24 @@ import { connect } from "react-redux";
 import * as actions from "../../store/actionCreators/actionCreators";
 import { v4 as uuidv4 } from "uuid";
 import ButtonShowAll from "../ButtonShowAll/ButtonShowAll";
-
+import Spinner from "../Spinner/Spinner";
 const FlightList = ({
   ticketFetchDate,
   tickets,
   displayedTickets,
   buttonShowAll,
   activeSort,
-  transferCounter,
+  filters,
+  stopReceiv,
 }) => {
-  console.log("displayedTickets", displayedTickets);
   useEffect(() => {
     // получаем билеты от сервера
-    ticketFetchDate();
+    // ticketFetchDate();
+
+    for (let i = 0; i < 5; i++) {
+      console.log("stopReceiv", stopReceiv);
+      ticketFetchDate();
+    }
   }, []);
 
   // если список тикетов пустой, то делаем возврат !Изменить на загрузку!
@@ -27,6 +32,22 @@ const FlightList = ({
 
   // функция увеличивает кол-во отображаемых билетов
   const numDisplayTickets = () => buttonShowAll();
+
+  // фильтруем массив
+  // создадим массив с выбранными фильтрами
+  let selectedFilters = [10];
+
+  for (let filterName in filters) {
+    // сопоставим фильтры со значениями и запушим их в массив
+    if (filters["allTranfsers"]) selectedFilters.push(10);
+    if (filters["noTransfers"]) selectedFilters.push(0);
+    if (filters["oneTransfer"]) selectedFilters.push(1);
+    if (filters["twoTransfer"]) selectedFilters.push(2);
+    if (filters["threeTransfer"]) selectedFilters.push(3);
+  }
+  // оставим в массиве только уникальные значения
+  selectedFilters = new Set([...selectedFilters]);
+  selectedFilters = [...selectedFilters];
 
   // сортируем новый массив в зависимости от displayedTickets
   switch (activeSort) {
@@ -59,10 +80,10 @@ const FlightList = ({
     // найдем общее количество пересадок в каждом билете
     const ticketTransfersCount =
       ticket.segments[0].stops.length + ticket.segments[1].stops.length;
-    return ticketTransfersCount === transferCounter;
+    // возвращаем, если совпадают фильтры
+    return selectedFilters.includes(ticketTransfersCount);
   });
 
-  console.log("filterTicketList", filterTicketList);
   const renderTickets = filterTicketList
     // обрезаем массив до значения displayedTickets, которое увеличиваем через экшен buttonShowAll
     .slice(0, displayedTickets)
@@ -72,35 +93,13 @@ const FlightList = ({
 
   return (
     <>
+      {!stopReceiv ? <Spinner /> : null}
       {renderTickets}
       <ButtonShowAll handleButton={numDisplayTickets} />
     </>
   );
-  // console.log("filterTicketList", filterTicketList);
-  // if (!filterTicketList) return;
-
-  // return filterTicketList.slice(0, displayedTickets).map((ticket) => {
-  //   return <FlightCard key={uuidv4()} ticketProps={ticket} />;
-  // });
-
-  // if (tickets) {
-  //   let testTickets = [];
-  //   for (let i = 0; i < 3; i++) {
-  //     const ticket = tickets[i];
-  //     testTickets.push(ticket);
-  //   }
-  //   return testTickets.map((ticket) => {
-  //     return <FlightCard key={uuidv4()} ticketProps={ticket} />;
-  //   });
-  // }
-
-  // ----------------------
-  // return tickets.map((ticket) => {
-  //   return <FlightCard key={uuidv4()} ticketProps={ticket} />;
-  // });
-
-  // return <FlightCard />;
 };
+
 const mapStateToProps = (store) => {
   const {
     tickets: { tickets },
@@ -112,6 +111,8 @@ const mapStateToProps = (store) => {
     displayedTickets: store.displayedTickets,
     activeSort,
     transferCounter: store.transferCounter,
+    filters: store.filters,
+    stopReceiv: store.stopReceiv,
   };
 };
 

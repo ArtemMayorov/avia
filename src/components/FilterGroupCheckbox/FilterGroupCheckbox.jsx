@@ -1,7 +1,6 @@
 import React from "react";
 import s from "./FilterGroupCheckbox.module.scss";
 function FilterGroupCheckbox({ text, id, name, active, handleCheck }) {
-  console.log("active", active);
   return (
     <li className={s.item}>
       <input
