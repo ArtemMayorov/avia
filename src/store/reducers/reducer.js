@@ -2,8 +2,13 @@ import { initialState } from "../initialState";
 
 const reducer = (state = initialState, action) => {
   const {
-    filterAllTicket,
-    filters: { noTransfers, oneTransfer, twoTransfer, threeTransfer },
+    filters: {
+      allTranfsers,
+      noTransfers,
+      oneTransfer,
+      twoTransfer,
+      threeTransfer,
+    },
   } = state;
 
   switch (action.type) {
@@ -19,48 +24,88 @@ const reducer = (state = initialState, action) => {
     case "FILTER_ALL_TRANSFERS":
       return {
         ...state,
-        filterAllTicket: !filterAllTicket,
         filters: {
-          noTransfers: !noTransfers,
-          oneTransfer: !oneTransfer,
-          twoTransfer: !twoTransfer,
-          threeTransfer: !threeTransfer,
+          allTranfsers: !allTranfsers,
+          noTransfers: !allTranfsers,
+          oneTransfer: !allTranfsers,
+          twoTransfer: !allTranfsers,
+          threeTransfer: !allTranfsers,
         },
+        transferCounter: 6,
       };
 
     case "FILTER_ON_TRANSFERS":
       return {
         ...state,
-        filterAllTicket: false,
         filters: {
+          ...state.filters,
+          allTranfsers:
+            !noTransfers === true &&
+            oneTransfer === true &&
+            twoTransfer === true &&
+            threeTransfer === true,
           noTransfers: !noTransfers,
         },
+        transferCounter: 0,
       };
     case "FILTER_ONE_TRANSFERS":
       return {
         ...state,
-        filterAllTicket: false,
         filters: {
+          ...state.filters,
+          allTranfsers:
+            !oneTransfer === true &&
+            noTransfers === true &&
+            twoTransfer === true &&
+            threeTransfer === true,
           oneTransfer: !oneTransfer,
         },
+        transferCounter: 1,
       };
     case "FILTER_TWO_TRANSFERS":
       return {
         ...state,
-        filterAllTicket: false,
         filters: {
+          ...state.filters,
+          allTranfsers:
+            !twoTransfer === true &&
+            noTransfers === true &&
+            oneTransfer === true &&
+            threeTransfer === true,
           twoTransfer: !twoTransfer,
         },
+        transferCounter: 2,
       };
     case "FILTER_THREE_TRANSFERS":
       return {
         ...state,
-        filterAllTicket: false,
         filters: {
+          ...state.filters,
+          allTranfsers:
+            !threeTransfer === true &&
+            noTransfers === true &&
+            twoTransfer === true &&
+            oneTransfer === true,
           threeTransfer: !threeTransfer,
         },
+        transferCounter: 3,
       };
 
+    case "TICKET_DATA_SUCCESS":
+      return {
+        ...state,
+        tickets: action.tickets,
+      };
+    case "STOP_RECEIVING":
+      return {
+        ...state,
+        stopReceiv: true,
+      };
+    case "BUTTON_SHOW_ALL":
+      return {
+        ...state,
+        displayedTickets: state.displayedTickets + action.payload,
+      };
     default:
       return state;
   }

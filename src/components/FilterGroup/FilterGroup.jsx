@@ -6,11 +6,11 @@ import { connect } from "react-redux";
 import FilterGroupCheckbox from "../FilterGroupCheckbox/FilterGroupCheckbox";
 const FilterGroup = ({
   filterAllTransfer,
-  filterAllTicket,
   filterOnTransfer,
   filterOneTransfer,
   filterTworansfer,
   filterThreeransfer,
+  allTranfsers,
   noTransfers,
   oneTransfer,
   twoTransfer,
@@ -22,7 +22,6 @@ const FilterGroup = ({
     if (name === "FILTER_ONE_TRANSFERS") filterOneTransfer();
     if (name === "FILTER_TWO_TRANSFERS") filterTworansfer();
     if (name === "FILTER_THREE_TRANSFERS") filterThreeransfer();
-    console.log("name", name);
   };
 
   return (
@@ -31,7 +30,7 @@ const FilterGroup = ({
       <ul>
         <FilterGroupCheckbox
           handleCheck={handleCheck}
-          active={filterAllTicket}
+          active={allTranfsers}
           text="Все"
           id="checbox1"
           name="FILTER_ALL_TRANSFERS"
@@ -70,12 +69,17 @@ const FilterGroup = ({
 };
 const mapStateToProps = (state) => {
   const {
-    filterAllTicket,
-    filters: { noTransfers, oneTransfer, twoTransfer, threeTransfer },
+    filters: {
+      allTranfsers,
+      noTransfers,
+      oneTransfer,
+      twoTransfer,
+      threeTransfer,
+    },
   } = state;
 
   return {
-    filterAllTicket,
+    allTranfsers,
     noTransfers,
     oneTransfer,
     twoTransfer,
