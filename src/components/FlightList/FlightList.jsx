@@ -5,6 +5,7 @@ import * as actions from "../../store/actionCreators/actionCreators";
 import { v4 as uuidv4 } from "uuid";
 import ButtonShowAll from "../ButtonShowAll/ButtonShowAll";
 import Spinner from "../Spinner/Spinner";
+import NotFoundAlert from "../NotFoundAlert/NotFoundAlert";
 const FlightList = ({
   ticketFetchDate,
   tickets,
@@ -24,8 +25,8 @@ const FlightList = ({
     }
   }, []);
 
-  // если список тикетов пустой, то делаем возврат !Изменить на загрузку!
-  if (!tickets) return;
+  // если список тикетов пустой, то делаем возврат
+  if (!tickets) return null;
 
   // будем фильтровать и сортировать новый массив по установленным фильтрам
   let filterTicketList = [...tickets];
@@ -83,6 +84,12 @@ const FlightList = ({
     // возвращаем, если совпадают фильтры
     return selectedFilters.includes(ticketTransfersCount);
   });
+  console.log("filterTicketList", filterTicketList);
+  const alert = !filterTicketList.length ? (
+    <NotFoundAlert />
+  ) : (
+    <ButtonShowAll handleButton={numDisplayTickets} />
+  );
 
   const renderTickets = filterTicketList
     // обрезаем массив до значения displayedTickets, которое увеличиваем через экшен buttonShowAll
@@ -95,7 +102,7 @@ const FlightList = ({
     <>
       {!stopReceiv ? <Spinner /> : null}
       {renderTickets}
-      <ButtonShowAll handleButton={numDisplayTickets} />
+      {alert}
     </>
   );
 };

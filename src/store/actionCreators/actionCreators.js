@@ -30,25 +30,25 @@ const idFetch = (searchId) => {
       `https://aviasales-test-api.kata.academy/tickets?searchId=${searchId}`
     )
       .then((response) => {
+        if (response.status === 500) {
+          dispatch(idFetch(searchId));
+          throw new Error();
+        }
         return response.json();
       })
       .then((tickets) => {
         if (tickets.stop) {
-          console.log("1");
-          // dispatch(ticketFetchDateSuccess(tickets));
           dispatch(stopReceiving());
           return;
         } else {
-          console.log("2");
           dispatch(ticketFetchDateSuccess(tickets));
           dispatch(idFetch(searchId));
         }
       })
-      .catch((err) => {
-        if (err.status === 500) {
-          dispatch(idFetch(searchId));
-          console.log("500");
-        }
+      .catch(() => {
+        return {
+          tickets: [],
+        };
       });
   };
 };
@@ -74,8 +74,9 @@ export const ticketFetchDate = () => {
         dispatch(idFetch(searchId.searchId));
       })
       .catch((err) => {
-        console.log("err");
-        // dispatch(ticketFetchDate());
+        return {
+          tickets: [],
+        };
       });
   };
 };
