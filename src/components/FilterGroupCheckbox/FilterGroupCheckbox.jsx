@@ -1,5 +1,5 @@
-import React from "react";
-import s from "./FilterGroupCheckbox.module.scss";
+import React from 'react';
+import s from './FilterGroupCheckbox.module.scss';
 function FilterGroupCheckbox({ text, id, name, active, handleCheck }) {
   return (
     <li className={s.item}>

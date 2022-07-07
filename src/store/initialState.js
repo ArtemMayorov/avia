@@ -1,5 +1,5 @@
 export const initialState = {
-  activeSort: "SORT_BY_PRICE",
+  activeSort: 'SORT_BY_PRICE',
   filters: {
     allTranfsers: true,
     noTransfers: true,

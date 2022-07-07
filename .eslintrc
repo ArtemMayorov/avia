@@ -1,0 +1,48 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "ignorePatterns": ["node_modules", "dist", "build"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:prettier/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings"
+  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": ["react", "prettier", "import"],
+  "rules": {
+    "indent": "off",
+    "prettier/prettier": "off",
+    "linebreak-style": [0, "unix"],
+    "quotes": ["error", "single"],
+    "semi": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": 0,
+    "import/no-unresolved": [2, { "caseSensitive": false }],
+    "no-unused-vars" : "off",
+    "react/no-unknown-property": "off",
+    "jsx-filename-extension":"off",
+    "import/no-named-as-default-member": "off",
+    "import/namespace": "off",
+    "import/default": "off",
+    "import/no-named-as-default": "off",
+    "react/jsx-filename-extension": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"],
+        "moduleDirectory": ["node_modules", "src/"]
+      }
+    }
+  }
+}

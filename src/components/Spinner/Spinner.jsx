@@ -1,8 +1,8 @@
-import React from "react";
-import classnames from "./Spinner.module.scss";
+import React from 'react';
+import classnames from './Spinner.module.scss';
 
 const Spinner = () => (
-  <div className={classnames["lds-roller"]}>
+  <div className={classnames['lds-roller']}>
     <div />
     <div />
     <div />

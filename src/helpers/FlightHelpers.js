@@ -1,8 +1,8 @@
-import { format, intervalToDuration } from "date-fns";
+import { format, intervalToDuration } from 'date-fns';
 
 export const declOfNum = (num) => {
-  const textForms = ["ПЕРЕСАДКА", "ПЕРЕСАДКИ", "ПЕРЕСАДОК"];
-  let form = "";
+  const textForms = ['ПЕРЕСАДКА', 'ПЕРЕСАДКИ', 'ПЕРЕСАДОК'];
+  let form = '';
   if (num >= 4) form += textForms[2];
   if (num > 1 && num <= 4) form += textForms[1];
   if (num === 1) form += textForms[0];
@@ -15,22 +15,19 @@ export const formatFligthDate = (date, duration) => {
     start: new Date(date),
     end: new Date(new Date(date).getTime() + duration * 60000),
   });
-  const minutes = dur.minutes === 0 ? "" : `${dur.minutes}M`;
+  const minutes = dur.minutes === 0 ? '' : `${dur.minutes}M`;
   return `${dur.hours}Ч ${minutes}`;
 };
 
 export function calculateTransferTime(data, duration) {
-  const startDate = format(new Date(data), "HH:mm");
-  const endDate = format(
-    new Date(new Date(data).getTime() + duration * 60000),
-    "HH:mm"
-  );
+  const startDate = format(new Date(data), 'HH:mm');
+  const endDate = format(new Date(new Date(data).getTime() + duration * 60000), 'HH:mm');
   return `${startDate} - ${endDate}`;
 }
 
 export const formatPrice = (number) => {
   const curSTr = number.toString();
-  return `${curSTr.replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, "$1" + " ")} Р`;
+  return `${curSTr.replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, '$1' + ' ')} Р`;
 };
 
 export const formatTime = (time) => {

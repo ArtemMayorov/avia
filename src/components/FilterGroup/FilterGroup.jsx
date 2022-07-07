@@ -1,9 +1,9 @@
-import React from "react";
-import s from "./FilterGroup.module.scss";
-import * as actions from "../../store/actionCreators/actionCreators";
-import { connect } from "react-redux";
+import React from 'react';
+import s from './FilterGroup.module.scss';
+import * as actions from '../../store/actionCreators/actionCreators';
+import { connect } from 'react-redux';
 
-import FilterGroupCheckbox from "../FilterGroupCheckbox/FilterGroupCheckbox";
+import FilterGroupCheckbox from '../FilterGroupCheckbox/FilterGroupCheckbox';
 const FilterGroup = ({
   filterAllTransfer,
   filterOnTransfer,
@@ -17,11 +17,11 @@ const FilterGroup = ({
   threeTransfer,
 }) => {
   const handleCheck = (name) => {
-    if (name === "FILTER_ALL_TRANSFERS") filterAllTransfer();
-    if (name === "FILTER_ON_TRANSFERS") filterOnTransfer();
-    if (name === "FILTER_ONE_TRANSFERS") filterOneTransfer();
-    if (name === "FILTER_TWO_TRANSFERS") filterTworansfer();
-    if (name === "FILTER_THREE_TRANSFERS") filterThreeransfer();
+    if (name === 'FILTER_ALL_TRANSFERS') filterAllTransfer();
+    if (name === 'FILTER_ON_TRANSFERS') filterOnTransfer();
+    if (name === 'FILTER_ONE_TRANSFERS') filterOneTransfer();
+    if (name === 'FILTER_TWO_TRANSFERS') filterTworansfer();
+    if (name === 'FILTER_THREE_TRANSFERS') filterThreeransfer();
   };
 
   return (
@@ -69,13 +69,7 @@ const FilterGroup = ({
 };
 const mapStateToProps = (state) => {
   const {
-    filters: {
-      allTranfsers,
-      noTransfers,
-      oneTransfer,
-      twoTransfer,
-      threeTransfer,
-    },
+    filters: { allTranfsers, noTransfers, oneTransfer, twoTransfer, threeTransfer },
   } = state;
 
   return {

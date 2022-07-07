@@ -1,28 +1,15 @@
-import React, { useEffect } from "react";
-import FlightCard from "../FlightCard/FlightCard";
-import { connect } from "react-redux";
-import * as actions from "../../store/actionCreators/actionCreators";
-import { v4 as uuidv4 } from "uuid";
-import ButtonShowAll from "../ButtonShowAll/ButtonShowAll";
-import Spinner from "../Spinner/Spinner";
-import NotFoundAlert from "../NotFoundAlert/NotFoundAlert";
-const FlightList = ({
-  ticketFetchDate,
-  tickets,
-  displayedTickets,
-  buttonShowAll,
-  activeSort,
-  filters,
-  stopReceiv,
-}) => {
+import React, { useEffect } from 'react';
+import FlightCard from '../FlightCard/FlightCard';
+import { connect } from 'react-redux';
+import * as actions from '../../store/actionCreators/actionCreators';
+import { v4 as uuidv4 } from 'uuid';
+import ButtonShowAll from '../ButtonShowAll/ButtonShowAll';
+import Spinner from '../Spinner/Spinner';
+import NotFoundAlert from '../NotFoundAlert/NotFoundAlert';
+const FlightList = ({ ticketFetchDate, tickets, displayedTickets, buttonShowAll, activeSort, filters, stopReceiv }) => {
   useEffect(() => {
     // получаем билеты от сервера
-    // ticketFetchDate();
-
-    for (let i = 0; i < 5; i++) {
-      console.log("stopReceiv", stopReceiv);
-      ticketFetchDate();
-    }
+    ticketFetchDate();
   }, []);
 
   // если список тикетов пустой, то делаем возврат
@@ -37,14 +24,13 @@ const FlightList = ({
   // фильтруем массив
   // создадим массив с выбранными фильтрами
   let selectedFilters = [10];
-
   for (let filterName in filters) {
     // сопоставим фильтры со значениями и запушим их в массив
-    if (filters["allTranfsers"]) selectedFilters.push(10);
-    if (filters["noTransfers"]) selectedFilters.push(0);
-    if (filters["oneTransfer"]) selectedFilters.push(1);
-    if (filters["twoTransfer"]) selectedFilters.push(2);
-    if (filters["threeTransfer"]) selectedFilters.push(3);
+    if (filters['allTranfsers']) selectedFilters.push(10);
+    if (filters['noTransfers']) selectedFilters.push(0);
+    if (filters['oneTransfer']) selectedFilters.push(1);
+    if (filters['twoTransfer']) selectedFilters.push(2);
+    if (filters['threeTransfer']) selectedFilters.push(3);
   }
   // оставим в массиве только уникальные значения
   selectedFilters = new Set([...selectedFilters]);
@@ -52,10 +38,10 @@ const FlightList = ({
 
   // сортируем новый массив в зависимости от displayedTickets
   switch (activeSort) {
-    case "SORT_BY_PRICE":
+    case 'SORT_BY_PRICE':
       filterTicketList.sort((a, b) => (a.price > b.price ? 1 : -1));
       break;
-    case "SORT_BY_TIME":
+    case 'SORT_BY_TIME':
       filterTicketList.sort((a, b) => {
         // найдем общее количество минут перелета
         const aSumDuration = a.segments[0].duration + a.segments[1].duration;
@@ -63,7 +49,7 @@ const FlightList = ({
         return aSumDuration > bSumDuration ? 1 : -1;
       });
       break;
-    case "SORT_BY_AVERAGE":
+    case 'SORT_BY_AVERAGE':
       filterTicketList.sort((a, b) => {
         // найдем общее количество минут перелета
         const aSumDuration = a.segments[0].duration + a.segments[1].duration;
@@ -79,17 +65,11 @@ const FlightList = ({
   // фильтруем массив в зависимости от количества пересадок
   filterTicketList = filterTicketList.filter((ticket) => {
     // найдем общее количество пересадок в каждом билете
-    const ticketTransfersCount =
-      ticket.segments[0].stops.length + ticket.segments[1].stops.length;
+    const ticketTransfersCount = ticket.segments[0].stops.length + ticket.segments[1].stops.length;
     // возвращаем, если совпадают фильтры
     return selectedFilters.includes(ticketTransfersCount);
   });
-  console.log("filterTicketList", filterTicketList);
-  const alert = !filterTicketList.length ? (
-    <NotFoundAlert />
-  ) : (
-    <ButtonShowAll handleButton={numDisplayTickets} />
-  );
+  const alert = !filterTicketList.length ? <NotFoundAlert /> : <ButtonShowAll handleButton={numDisplayTickets} />;
 
   const renderTickets = filterTicketList
     // обрезаем массив до значения displayedTickets, которое увеличиваем через экшен buttonShowAll

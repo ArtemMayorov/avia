@@ -20,7 +20,7 @@
       margin-left: 5px;
       cursor: pointer;
       &::before {
-        content: "";
+        content: '';
         margin-left: 20px;
         margin-right: 10px;
         display: block;
@@ -34,12 +34,12 @@
     &:checked {
       & + label {
         &::before {
-          content: "";
+          content: '';
           border: 1px solid #2196f3;
         }
         &::after {
-          content: "";
-          background: url("./images/Shapecheck-mark.svg") no-repeat center;
+          content: '';
+          background: url('./images/Shapecheck-mark.svg') no-repeat center;
           position: absolute;
           transform: translate(105%, 50%);
           top: 0px;

@@ -1,5 +1,5 @@
-import React from "react";
-import s from "./ButtonShowAll.module.scss";
+import React from 'react';
+import s from './ButtonShowAll.module.scss';
 
 function ButtonShowAll({ handleButton }) {
   return (

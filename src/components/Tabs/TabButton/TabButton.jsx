@@ -1,5 +1,5 @@
-import React from "react";
-import s from "./TabButton.module.scss";
+import React from 'react';
+import s from './TabButton.module.scss';
 
 function TabButton({ text, handleActiveButton, activeSort, id }) {
   return (
@@ -7,7 +7,7 @@ function TabButton({ text, handleActiveButton, activeSort, id }) {
       <button
         id={id}
         onClick={() => handleActiveButton(id)}
-        className={activeSort === id ? s["button--active"] : s.button}
+        className={activeSort === id ? s['button--active'] : s.button}
       >
         {text}
       </button>

@@ -1,9 +1,9 @@
-import React from "react";
-import Header from "../Header/Header.jsx";
-import FilterGroup from "../FilterGroup/FilterGroup.jsx";
-import NavBar from "../Tabs/Tabs";
-import FlightList from "../FlightList/FlightList.jsx";
-import s from "./App.module.scss";
+import React from 'react';
+import Header from '../Header/Header.jsx';
+import FilterGroup from '../FilterGroup/FilterGroup.jsx';
+import NavBar from '../Tabs/Tabs';
+import FlightList from '../FlightList/FlightList.jsx';
+import s from './App.module.scss';
 function App() {
   return (
     <div className={s.appContainer}>
