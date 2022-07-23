@@ -36,12 +36,12 @@ const NavBar = ({ activeSort, sortByPrice, sortByTime, sortByAverage }) => {
     </div>
   );
 };
-const mapStateToProps = (store) => {
+const mapStateToProps = ({ ticketsReducer, sortReducer }) => {
   const {
     tickets: { tickets },
-  } = store;
+  } = ticketsReducer;
   return {
-    activeSort: store.activeSort,
+    activeSort: sortReducer.activeSort,
     tickets,
   };
 };

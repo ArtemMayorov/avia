@@ -33,3 +33,10 @@ export const formatPrice = (number) => {
 export const formatTime = (time) => {
   return `${Math.trunc(time / 60)}ч ${time % 60}м`;
 };
+
+export const countSum = (a, b) => a + b;
+
+export const uniqueizeArray = (array) => {
+  const newArray = new Set([...array]);
+  return [...newArray];
+};

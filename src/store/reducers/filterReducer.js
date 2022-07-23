@@ -1,21 +1,19 @@
 import { initialState } from '../initialState';
+import actionTypes from '../constants';
 
-const reducer = (state = initialState, action) => {
+const filterReducer = (state = initialState, action) => {
+  const {
+    FILTER_ALL_TRANSFERS,
+    FILTER_ON_TRANSFERS,
+    FILTER_ONE_TRANSFERS,
+    FILTER_TWO_TRANSFERS,
+    FILTER_THREE_TRANSFERS,
+  } = actionTypes;
   const {
     filters: { allTranfsers, noTransfers, oneTransfer, twoTransfer, threeTransfer },
   } = state;
-
   switch (action.type) {
-    case 'SORT_BY_PRICE':
-      return { ...state, activeSort: 'SORT_BY_PRICE' };
-    case 'SORT_BY_TIME':
-      return { ...state, activeSort: 'SORT_BY_TIME' };
-    case 'SORT_BY_AVERAGE':
-      return {
-        ...state,
-        activeSort: 'SORT_BY_AVERAGE',
-      };
-    case 'FILTER_ALL_TRANSFERS':
+    case FILTER_ALL_TRANSFERS:
       return {
         ...state,
         filters: {
@@ -28,7 +26,7 @@ const reducer = (state = initialState, action) => {
         transferCounter: 6,
       };
 
-    case 'FILTER_ON_TRANSFERS':
+    case FILTER_ON_TRANSFERS:
       return {
         ...state,
         filters: {
@@ -38,7 +36,7 @@ const reducer = (state = initialState, action) => {
         },
         transferCounter: 0,
       };
-    case 'FILTER_ONE_TRANSFERS':
+    case FILTER_ONE_TRANSFERS:
       return {
         ...state,
         filters: {
@@ -48,7 +46,7 @@ const reducer = (state = initialState, action) => {
         },
         transferCounter: 1,
       };
-    case 'FILTER_TWO_TRANSFERS':
+    case FILTER_TWO_TRANSFERS:
       return {
         ...state,
         filters: {
@@ -58,7 +56,7 @@ const reducer = (state = initialState, action) => {
         },
         transferCounter: 2,
       };
-    case 'FILTER_THREE_TRANSFERS':
+    case FILTER_THREE_TRANSFERS:
       return {
         ...state,
         filters: {
@@ -69,31 +67,8 @@ const reducer = (state = initialState, action) => {
         transferCounter: 3,
       };
 
-    case 'TICKET_DATA_SUCCESS':
-      if (!state.tickets.tickets) {
-        return {
-          ...state,
-          tickets: action.tickets,
-        };
-      }
-      return {
-        ...state,
-        tickets: {
-          tickets: [...state.tickets.tickets, ...action.tickets.tickets],
-        },
-      };
-    case 'STOP_RECEIVING':
-      return {
-        ...state,
-        stopReceiv: true,
-      };
-    case 'BUTTON_SHOW_ALL':
-      return {
-        ...state,
-        displayedTickets: state.displayedTickets + action.payload,
-      };
     default:
       return state;
   }
 };
-export default reducer;
+export default filterReducer;

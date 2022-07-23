@@ -1,32 +1,33 @@
-export const sortByPrice = () => ({ type: 'SORT_BY_PRICE' });
-export const sortByTime = () => ({ type: 'SORT_BY_TIME' });
-export const sortByAverage = () => ({ type: 'SORT_BY_AVERAGE' });
-export const filterAllTransfer = () => ({ type: 'FILTER_ALL_TRANSFERS' });
-export const filterOnTransfer = () => ({ type: 'FILTER_ON_TRANSFERS' });
-export const filterOneTransfer = () => ({ type: 'FILTER_ONE_TRANSFERS' });
-export const filterTworansfer = () => ({ type: 'FILTER_TWO_TRANSFERS' });
-export const filterThreeransfer = () => ({ type: 'FILTER_THREE_TRANSFERS' });
-const stopReceiving = () => ({ type: 'STOP_RECEIVING' });
+import actionTypes from '../constants';
 
-// будем увеличивать текущее значение displayedTickets на 5
+export const sortByPrice = () => ({ type: actionTypes.SORT_BY_PRICE });
+export const sortByTime = () => ({ type: actionTypes.SORT_BY_TIME });
+export const sortByAverage = () => ({ type: actionTypes.SORT_BY_AVERAGE });
+export const filterAllTransfer = () => ({ type: actionTypes.FILTER_ALL_TRANSFERS });
+export const filterOnTransfer = () => ({ type: actionTypes.FILTER_ON_TRANSFERS });
+export const filterOneTransfer = () => ({ type: actionTypes.FILTER_ONE_TRANSFERS });
+export const filterTworansfer = () => ({ type: actionTypes.FILTER_TWO_TRANSFERS });
+export const filterThreeransfer = () => ({ type: actionTypes.FILTER_THREE_TRANSFERS });
+const stopReceiving = () => ({ type: actionTypes.STOP_RECEIVING });
+
 export const buttonShowAll = () => ({
-  type: 'BUTTON_SHOW_ALL',
+  type: actionTypes.BUTTON_SHOW_ALL,
   payload: 5,
 });
 
 export const ticketFetchDateSuccess = (tickets) => {
   return {
-    type: 'TICKET_DATA_SUCCESS',
+    type: actionTypes.TICKET_DATA_SUCCESS,
     tickets: tickets,
   };
 };
-
-const idFetch = (searchId) => {
+const _baseUrl = 'https://aviasales-test-api.kata.academy';
+const getId = (searchId) => {
   return (dispatch) => {
-    fetch(`https://aviasales-test-api.kata.academy/tickets?searchId=${searchId}`)
+    fetch(`${_baseUrl}/tickets?searchId=${searchId}`)
       .then((response) => {
         if (response.status === 500) {
-          dispatch(idFetch(searchId));
+          dispatch(getId(searchId));
           throw new Error();
         }
         return response.json();
@@ -37,7 +38,7 @@ const idFetch = (searchId) => {
           return;
         } else {
           dispatch(ticketFetchDateSuccess(tickets));
-          dispatch(idFetch(searchId));
+          dispatch(getId(searchId));
         }
       })
       .catch(() => {
@@ -48,14 +49,14 @@ const idFetch = (searchId) => {
   };
 };
 
-export const ticketFetchDate = () => {
+export const getTicketDate = () => {
   return (dispatch) => {
-    fetch('https://aviasales-test-api.kata.academy/search')
+    fetch(`${_baseUrl}/search`)
       .then((response) => response.json())
       .then((searchId) => {
-        dispatch(idFetch(searchId.searchId));
+        dispatch(getId(searchId.searchId));
       })
-      .catch((err) => {
+      .catch(() => {
         return {
           tickets: [],
         };

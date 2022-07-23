@@ -67,10 +67,10 @@ const FilterGroup = ({
     </div>
   );
 };
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ filterReducer }) => {
   const {
     filters: { allTranfsers, noTransfers, oneTransfer, twoTransfer, threeTransfer },
-  } = state;
+  } = filterReducer;
 
   return {
     allTranfsers,
